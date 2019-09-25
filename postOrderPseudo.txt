@@ -1,0 +1,36 @@
+postorder
+
+postOrder
+if(isEmpty(nodeStack))
+{
+    throw new StackIsEmptyException;
+}
+node = pop()
+while(node != null)
+{
+    push(node)
+    node = firstNonNullChild(node)
+}
+node = pop()
+postOrder = node.getData()
+if(!isEmpty(nodeStack))
+{
+    parent = peek()
+    //at this point node is the one we just considered and parent is its parent
+    if(node == leftChild(parent))
+    {
+        nodeToPush = parent.getMiddleChild();
+        if(nodeToPush == null) {
+            nodeToPush = parent.getRightChild();
+        }
+        push(nodeToPush)
+    }
+    elseif(node == middleChild(parent))
+    {
+        push(parent.getRightChild())
+    }
+    else
+    {
+        push(null)
+    }
+}
